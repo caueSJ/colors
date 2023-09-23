@@ -13,7 +13,7 @@ const getRandomColorRGB = () => {
   return `rgb(${getRandomNumber()}, ${getRandomNumber()}, ${getRandomNumber()})`;
 }
 
-const changeColor = () => {  
+const changeColor = () => {
   main.style.backgroundColor = getRandomColorRGB();
   button.style.backgroundColor = getRandomColorRGB();
   button.style.color = button.style.borderColor = getRandomColorRGB();
@@ -31,11 +31,17 @@ const hide = (...elements) => {
   });
 }
 
+const resetColors = () => {
+  main.removeAttribute('style');
+  button.removeAttribute('style');
+}
+
 const updateView = (version) => {
   if (version > 0) {
     hide(versionList);
     show(changeBackgroundButton, backButton);
   } else {
+    resetColors();
     hide(changeBackgroundButton, backButton);
     show(versionList);
   }
