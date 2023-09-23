@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./main.js" defer></script>
+  <title>Change Colors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="main">
+    <button class="btn-back hide" id="backButton" onclick="updateView(0);">Back</button>
+    <div id="versionList">
+      <ul>
+        <li onclick="updateView(1);">Version 1 - Solid Colors</li>
+        <li onclick="updateView(2);">Version 2 - Gradient Colors</li>
+        <li onclick="updateView(3);">Version 3 - <a href="https://yeun.github.io/open-color/" target="_blank">Open Color</a></li>
+      </ul>
+    </div>
+    <button id="changeBackgroundButton" class="btn-change-color hide" onclick="changeColor()">Change Color Now!</button>
+  </div>
+</body>
+</html>
