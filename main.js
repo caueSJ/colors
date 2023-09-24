@@ -95,6 +95,5 @@ const updateView = (reset = false) => {
   } else {
     hide(versionList);
     show(changeBackgroundButton, backButton);
-    changeBackgroundButton.dataset.
   }
 }
