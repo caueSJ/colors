@@ -4,6 +4,7 @@ const button = document.querySelector('.btn-change-color');
 const versionList = document.querySelector('#versionList');
 const changeBackgroundButton = document.querySelector('#changeBackgroundButton');
 const backButton = document.querySelector('#backButton');
+const colorsArray = ['blue','cyan','grape','gray','green','indigo','lime','orange','pink','red','teal','violet','yellow'];
 
 /**
  * Generates and returns a random number between 0 and maxValue.
@@ -19,7 +20,7 @@ const getRandomNumber = (maxValue) => {
  * @returns {Number} Returns a random number to be used as value for R, G and B.
  */
 const getRandomRGBValue = () => {
-  return getRandomNumber(255);
+  return getRandomNumber(256);
 }
 
 /**
@@ -27,7 +28,7 @@ const getRandomRGBValue = () => {
  * @returns {Number} Returns a random number to be used as a degree angle for a linear-gradient color.
  */
 const getRandomAngle = () => {
-  return `${getRandomNumber(360)}deg`;
+  return `${getRandomNumber(361)}deg`;
 }
 
 const getRandomColorRGB = () => {
@@ -42,13 +43,26 @@ const getRandomGradientColor = () => {
   return `linear-gradient(${getRandomAngle()}, ${getRandomColorRGB()}, ${getRandomColorRGB()})`;
 }
 
+const getRandomVarColor = () => {
+  const index = getRandomNumber(colorsArray.length - 1);
+  return `var(--${colorsArray[index]}-${getRandomNumber(10)})`;
+}
+
+const getRandomGradientOC = () => {
+  return `linear-gradient(${getRandomAngle()}, ${getRandomVarColor()}, ${getRandomVarColor()})`;
+}
+
 /**
- * Change some colors.
+ * Change some colors based on changeBackgroundButton data-attribute value.
  *
- * Version 1: Solid colors (only one color).
+ * Version 1: Solid colors (single color).
+ * 
  * Version 2: Gradient colors (two-colors gradients).
+ * 
+ * Version 3: Gradient colors with Open Colors scheme (two-colors gradients).
  */
-const changeColor = (version) => {
+const changeColor = () => {
+  const version = +changeBackgroundButton.dataset.version;
   switch (version) {
     case 1:
       main.style.backgroundColor = getRandomColorRGB();
@@ -56,44 +70,67 @@ const changeColor = (version) => {
       button.style.color = button.style.borderColor = getRandomColorRGB();
       break;
     case 2:
-      main.style.background = getRandomGradientColor();
-      button.style.background = getRandomGradientColor();
+      main.style.background = button.style.background = getRandomGradientColor();
+      button.style.color = button.style.borderColor = 'var(--gray-0)';
+      break;
+    case 3:
+      main.style.background = button.style.background = getRandomGradientOC();
+      button.style.color = button.style.borderColor = 'var(--gray-0)';
       break;
     default:
+      alert('Invalid Version :(');
       break;
   }
 }
 
+/**
+ * Show one or more elements.
+ * @param  {...HTMLElement} elements List of elements to show.
+ */
 const show = (...elements) => {
   elements.forEach(element => {
     element.classList.remove('hide');
   });
 }
 
+/**
+ * Hide one or more elements.
+ * @param  {...any} elements List of elements to hide.
+ * @returns {void}
+ */
 const hide = (...elements) => {
   elements.forEach(element => {
     element.classList.add('hide');
   });
 }
 
+/**
+ * Reset colors when click in "Back" button.
+ * @returns {void}
+ */
 const resetColors = () => {
   main.removeAttribute('style');
   button.removeAttribute('style');
 }
 
 /**
- * Update elements in page showing or hiding them.
- * @param {Boolean} reset 
+ * Update elements in page.
+ * @param {Number} version
  * @returns {void}
  */
-const updateView = (reset = false) => {
-  if (reset) {
-    resetColors();
-    hide(changeBackgroundButton, backButton);
-    show(versionList);
-    return;
-  } else {
-    hide(versionList);
-    show(changeBackgroundButton, backButton);
-  }
+const updateView = (version) => {
+  hide(versionList);
+  show(changeBackgroundButton, backButton);
+  changeBackgroundButton.dataset.version = version; // Update button's "data-version" attribute
+}
+
+/**
+ * Resets the UI to the initial state (default colors and elements visible).
+ * Function called by "Back" button.
+ * @returns {void}
+ */
+const resetView = () => {
+  resetColors();
+  hide(changeBackgroundButton, backButton);
+  show(versionList);
 }

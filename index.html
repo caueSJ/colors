@@ -13,15 +13,15 @@
 </head>
 <body>
   <div class="main">
-    <button class="btn-back hide" id="backButton" onclick="updateView(true);">Back</button>
+    <button class="btn-back hide" id="backButton" onclick="resetView();">Back</button>
     <div id="versionList">
       <ul>
-        <li onclick="updateView();">Version 1 - Solid Colors</li>
-        <li onclick="updateView();">Version 2 - Gradient Colors</li>
-        <li title="Not implemented yet :(" onclick="">Version 3 - <a href="https://yeun.github.io/open-color/" target="_blank">Open Color</a></li>
+        <li onclick="updateView(1);">Version 1 - Solid Colors</li>
+        <li onclick="updateView(2);">Version 2 - Gradient Colors</li>
+        <li onclick="updateView(3);">Version 3 - Gradient <a href="https://yeun.github.io/open-color/" target="_blank">Open Color</a></li>
       </ul>
     </div>
-    <button id="changeBackgroundButton" class="btn-change-color hide" onclick="changeColor()">Change Color Now!</button>
+    <button id="changeBackgroundButton" class="btn-change-color hide" onclick="changeColor();">Change Color Now!</button>
   </div>
 </body>
 </html>
