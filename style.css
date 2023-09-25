@@ -57,7 +57,7 @@ a:hover {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .btn-change-color {
@@ -69,17 +69,30 @@ a:hover {
 }
 
 .btn-back {
-  padding: 5px;
+  display: flex;
+  align-items: center;
+  padding: 5px 15px;
   font-size: 1rem;
-  border: 2px solid var(--gray-4);
+  border: none;
   color: var(--gray-7);
   border-radius: 5px;
   position: absolute;
   top: 10px;
   left: 10px;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .btn-back:hover {
-  background-color: var(--yellow-0);
+  background-color: var(--gray-6);
+  color: var(--gray-2);
+}
+
+.icon-arrow-back {
+  border: solid currentColor;
+  border-width: 0 0 2px 2px;
+  display: inline-block;
+  padding: 4px;
+  margin-right: 5px;
+  transform: rotate(45deg);
 }
