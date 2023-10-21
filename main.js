@@ -63,19 +63,25 @@ const getRandomGradientOC = () => {
  */
 const changeColor = () => {
   const version = +changeBackgroundButton.dataset.version;
+  const boxShadow = '6px 6px var(--gray-0)';
+  const lightColor = 'var(--gray-0)';
   switch (version) {
     case 1:
       main.style.backgroundColor = getRandomColorRGB();
       button.style.backgroundColor = getRandomColorRGB();
-      button.style.color = button.style.borderColor = getRandomColorRGB();
+      const color = getRandomColorRGB();
+      button.style.color = lightColor;
+      button.style.boxShadow = `6px 6px ${color}`;
       break;
     case 2:
       main.style.background = button.style.background = getRandomGradientColor();
-      button.style.color = button.style.borderColor = 'var(--gray-0)';
+      button.style.color = lightColor;
+      button.style.boxShadow = boxShadow;
       break;
     case 3:
       main.style.background = button.style.background = getRandomGradientOC();
-      button.style.color = button.style.borderColor = 'var(--gray-0)';
+      button.style.color = lightColor;
+      button.style.boxShadow = boxShadow;
       break;
     default:
       alert('Invalid Version :(');
