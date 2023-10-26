@@ -20,6 +20,11 @@ const _extractRGBValues = (rgbColorString) => {
   return rgbColorString.match(/\d{1,3}/g);
 }
 
+/**
+ * Calculates color luminance
+ * @param {'rgb(number, number, number)'} rgbColorString String for color in rgb() format.
+ * @returns {Number} Value of color luminance
+ */
 const _luminance = (rgbColorString) => {
   const rgbArray = _extractRGBValues(rgbColorString);
   const luminanceArray = rgbArray.map((value) => {
@@ -31,8 +36,11 @@ const _luminance = (rgbColorString) => {
   return luminanceArray[0] * RED + luminanceArray[1] * GREEN + luminanceArray[2] * BLUE;
 }
 
+/**
+ * Function to calculate/test button background color to determine the best text color ("white" or "black").
+ * @param {'rgb(number, number, number)'} color String for color in rgb() format.
+ * @returns {Number} Color luminance. This value can be in the range of 0 to 1, where 0 is dark colors and 1 light colors.
+ */
 const checkContrast = (color) => {
-  const lumin = _luminance(color);
-  console.log('lumin', lumin)
-  return lumin;
+  return _luminance(color);
 }
