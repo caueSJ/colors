@@ -20,6 +20,7 @@ body {
   width: 100%;
   background-color: var(--gray-1);
   color: var(--gray-8);
+  transition: background-color 0.5s ease-out;
 }
 
 ul {
@@ -67,6 +68,7 @@ a:hover {
   border-radius: 3px;
   cursor: pointer;
   box-shadow: 6px 6px var(--gray-5);
+  transition: all 0.5s ease-out;
 }
 
 .btn-back {

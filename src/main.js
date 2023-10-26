@@ -1,10 +1,21 @@
-// const block = document.createElement('div');
 const main = document.querySelector('.main');
 const button = document.querySelector('.btn-change-color');
 const versionList = document.querySelector('#versionList');
 const changeBackgroundButton = document.querySelector('#changeBackgroundButton');
 const backButton = document.querySelector('#backButton');
 const colorsArray = ['blue','cyan','grape','gray','green','indigo','lime','orange','pink','red','teal','violet','yellow'];
+
+// Set all events after load DOM content.
+document.addEventListener('DOMContentLoaded', setEventListeners(), false);
+
+function setEventListeners() {
+  // Set events for version list items.
+  document.querySelectorAll('li').forEach(versionItem => {
+    versionItem.addEventListener('click', function(){ updateView(versionItem.id) });
+  });
+  changeBackgroundButton.addEventListener('click', changeColor);
+  backButton.addEventListener('click', resetView);
+}
 
 /**
  * Generates and returns a random number between 0 and maxValue.
@@ -52,6 +63,14 @@ const getRandomGradientOC = () => {
   return `linear-gradient(${getRandomAngle()}, ${getRandomVarColor()}, ${getRandomVarColor()})`;
 }
 
+const changeButtonStyle = () => {
+  const color = getRandomColorRGB();
+  const textColor = checkContrast(color) > 0.7 ? 'var(--gray-8)' : '#FFFFFF';
+  button.style.backgroundColor = color;
+  button.style.color = textColor;
+  button.style.boxShadow = `6px 6px ${getRandomColorRGB()}`;
+}
+
 /**
  * Change some colors based on changeBackgroundButton data-attribute value.
  *
@@ -61,17 +80,14 @@ const getRandomGradientOC = () => {
  * 
  * Version 3: Gradient colors with Open Colors scheme (two-colors gradients).
  */
-const changeColor = () => {
+function changeColor() {
   const version = +changeBackgroundButton.dataset.version;
   const boxShadow = '6px 6px var(--gray-0)';
   const lightColor = 'var(--gray-0)';
   switch (version) {
     case 1:
       main.style.backgroundColor = getRandomColorRGB();
-      button.style.backgroundColor = getRandomColorRGB();
-      const color = getRandomColorRGB();
-      button.style.color = lightColor;
-      button.style.boxShadow = `6px 6px ${color}`;
+      changeButtonStyle();
       break;
     case 2:
       main.style.background = button.style.background = getRandomGradientColor();
@@ -93,7 +109,7 @@ const changeColor = () => {
  * Show one or more elements.
  * @param  {...HTMLElement} elements List of elements to show.
  */
-const show = (...elements) => {
+function show(...elements) {
   elements.forEach(element => {
     element.classList.remove('hide');
   });
@@ -104,7 +120,7 @@ const show = (...elements) => {
  * @param  {...any} elements List of elements to hide.
  * @returns {void}
  */
-const hide = (...elements) => {
+function hide(...elements) {
   elements.forEach(element => {
     element.classList.add('hide');
   });
@@ -124,10 +140,10 @@ const resetColors = () => {
  * @param {Number} version
  * @returns {void}
  */
-const updateView = (version) => {
+function updateView(version) {
   hide(versionList);
   show(changeBackgroundButton, backButton);
-  changeBackgroundButton.dataset.version = version; // Update button's "data-version" attribute
+  changeBackgroundButton.dataset.version = version; // Update buttons "data-version" attribute
 }
 
 /**
@@ -135,7 +151,7 @@ const updateView = (version) => {
  * Function called by "Back" button.
  * @returns {void}
  */
-const resetView = () => {
+function resetView() {
   resetColors();
   hide(changeBackgroundButton, backButton);
   show(versionList);
